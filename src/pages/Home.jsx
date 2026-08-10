@@ -6,7 +6,7 @@ function Home() {
   return (
     <>
       <Hero />
-      <Featured />
+    <Featured limit={3} />
       <Newsletter />
     </>
   );

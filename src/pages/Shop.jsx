@@ -1,7 +1,7 @@
 import Featured from "../components/Featured";
 
 function Shop() {
-  return <Featured />;
+    return <Featured />;
 }
 
 export default Shop;

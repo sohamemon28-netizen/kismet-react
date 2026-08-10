@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
-function Featured() {
+function Featured({ limit }) {
 
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState("");
@@ -10,11 +10,19 @@ function Featured() {
 
         async function loadProducts() {
 
-            const response = await fetch("/products.json");
+            try {
 
-            const data = await response.json();
+                const response = await fetch("http://localhost:5000/api/products");
 
-            setProducts(data);
+                const data = await response.json();
+
+                setProducts(data);
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
 
         }
 
@@ -25,6 +33,10 @@ function Featured() {
     const filteredProducts = products.filter(product =>
         product.title.toLowerCase().includes(search.toLowerCase())
     );
+
+    const displayedProducts = limit
+        ? filteredProducts.slice(0, limit)
+        : filteredProducts;
 
     return (
 
@@ -41,10 +53,10 @@ function Featured() {
 
             <div className="cards">
 
-                {filteredProducts.map(product => (
+                {displayedProducts.map(product => (
 
                     <ProductCard
-                        key={product.id}
+                        key={product._id}
                         product={product}
                     />
 

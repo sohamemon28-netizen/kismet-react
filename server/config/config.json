@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Caution!28",
+    "database": "kismet",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+
+  "test": {
+    "username": "postgres",
+    "password": "Caution!28",
+    "database": "kismet_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+
+  "production": {
+    "username": "postgres",
+    "password": "Caution!28",
+    "database": "kismet",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

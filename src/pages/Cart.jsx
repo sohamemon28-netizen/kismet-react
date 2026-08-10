@@ -6,8 +6,11 @@ function Cart() {
     const { cart, removeFromCart } = useContext(CartContext);
 
     const total = cart.reduce(
-        (sum, item) => sum + item.price,
+
+        (sum, item) => sum + item.price * item.quantity,
+
         0
+
     );
 
     return (
@@ -20,54 +23,56 @@ function Cart() {
 
                 cart.length === 0 ?
 
-                <h3>Your cart is empty.</h3>
+                    <h3>Your cart is empty.</h3>
 
-                :
+                    :
 
-                <>
+                    <>
 
-                    {
+                        {
 
-                        cart.map(item => (
+                            cart.map(item => (
 
-                            <div className="cart-item" key={item.id}>
+                                <div className="cart-item" key={item._id}>
 
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                />
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                    />
 
-                                <div>
+                                    <div>
 
-                                    <h3>{item.title}</h3>
+                                        <h3>{item.title}</h3>
 
-                                    <p>£{item.price}</p>
+                                        <p>£{item.price}</p>
+
+                                        <p>Quantity: {item.quantity}</p>
+
+                                    </div>
+
+                                    <button
+                                        onClick={() =>
+                                            removeFromCart(item._id)
+                                        }
+                                    >
+
+                                        Remove
+
+                                    </button>
 
                                 </div>
 
-                                <button
-                                    onClick={() =>
-                                        removeFromCart(item.id)
-                                    }
-                                >
+                            ))
 
-                                    Remove
+                        }
 
-                                </button>
+                        <h2>
 
-                            </div>
+                            Total: £{total.toFixed(2)}
 
-                        ))
+                        </h2>
 
-                    }
-
-                    <h2>
-
-                        Total: £{total.toFixed(2)}
-
-                    </h2>
-
-                </>
+                    </>
 
             }
 
