@@ -1,16 +1,85 @@
-# React + Vite
+# Kismet E-Commerce API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A RESTful e-commerce backend built using Node.js, Express.js, MongoDB and Mongoose.
 
-Currently, two official plugins are available:
+## Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcrypt
+- Postman
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Authentication
 
-## Expanding the ESLint configuration
+- User registration
+- User login
+- Password hashing using bcrypt
+- JWT authentication
+- Protected routes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Products
+
+- Get all products
+- Get product by ID
+- Create product
+- Update product
+- Delete product
+
+### Orders
+
+- Create order
+- Get user's orders
+- Get order by ID
+- Update order
+- Delete order
+
+## API Endpoints
+
+### Authentication
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/register` | Register a user |
+| POST | `/api/auth/login` | Login |
+
+### Products
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/products` | Get all products |
+| GET | `/api/products/:id` | Get one product |
+| POST | `/api/products` | Create product |
+| PUT | `/api/products/:id` | Update product |
+| DELETE | `/api/products/:id` | Delete product |
+
+### Orders
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/orders` | Get user's orders |
+| GET | `/api/orders/:id` | Get one order |
+| POST | `/api/orders` | Create order |
+| PUT | `/api/orders/:id` | Update order |
+| DELETE | `/api/orders/:id` | Delete order |
+
+## Authentication
+
+Protected endpoints require:
+
+`Authorization: Bearer <JWT_TOKEN>`
+
+The JWT is obtained through the login endpoint.
+
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+MONGO_URI=mongodb://127.0.0.1:27017/kismetDB
+PORT=5000
+JWT_SECRET=your_secret_key

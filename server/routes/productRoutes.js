@@ -1,88 +1,178 @@
 import express from "express";
-import Product from "../models/Product.js";
+
+import {
+    getProducts,
+    getProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct
+} from "../controllers/productController.js";
+
+import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// GET all products
-router.get("/", async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+/**
+ * @swagger
+ * tags:
+ *   name: Products
+ *   description: Product management
+ */
 
-// GET one product
-router.get("/:id", async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       required:
+ *         - title
+ *         - description
+ *         - price
+ *         - image
+ *         - category
+ *       properties:
+ *         _id:
+ *           type: string
+ *           example: 64f123abc456def789012345
+ *         title:
+ *           type: string
+ *           example: Classic White T-Shirt
+ *         description:
+ *           type: string
+ *           example: Comfortable cotton t-shirt
+ *         price:
+ *           type: number
+ *           example: 29.99
+ *         image:
+ *           type: string
+ *           example: https://example.com/tshirt.jpg
+ *         category:
+ *           type: string
+ *           example: Clothing
+ */
 
-        if (!product)
-            return res.status(404).json({ message: "Product not found" });
+/**
+ * @swagger
+ * /api/products:
+ *   get:
+ *     summary: Get all products
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: List of all products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ */
+router.get("/", getProducts);
 
-        res.json(product);
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   get:
+ *     summary: Get a product by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Product ID
+ *     responses:
+ *       200:
+ *         description: Product found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Product not found
+ */
+router.get("/:id", getProduct);
 
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+/**
+ * @swagger
+ * /api/products:
+ *   post:
+ *     summary: Create a new product
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       201:
+ *         description: Product created successfully
+ *       400:
+ *         description: Invalid product data
+ *       401:
+ *         description: Unauthorized
+ */
+router.post("/", protect, createProduct);
 
-// CREATE product
-router.post("/", async (req, res) => {
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   put:
+ *     summary: Update a product
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Product ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ *       404:
+ *         description: Product not found
+ *       401:
+ *         description: Unauthorized
+ */
+router.put("/:id", protect, updateProduct);
 
-    try {
-
-        const product = await Product.create(req.body);
-
-        res.status(201).json(product);
-
-    } catch (err) {
-
-        res.status(400).json({ message: err.message });
-
-    }
-
-});
-
-// UPDATE product
-router.put("/:id", async (req, res) => {
-
-    try {
-
-        const updated = await Product.findByIdAndUpdate(
-
-            req.params.id,
-            req.body,
-            { new: true }
-
-        );
-
-        res.json(updated);
-
-    } catch (err) {
-
-        res.status(400).json({ message: err.message });
-
-    }
-
-});
-
-// DELETE product
-router.delete("/:id", async (req, res) => {
-
-    try {
-
-        await Product.findByIdAndDelete(req.params.id);
-
-        res.json({ message: "Product deleted successfully" });
-
-    } catch (err) {
-
-        res.status(500).json({ message: err.message });
-
-    }
-
-});
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   delete:
+ *     summary: Delete a product
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Product ID
+ *     responses:
+ *       200:
+ *         description: Product deleted successfully
+ *       404:
+ *         description: Product not found
+ *       401:
+ *         description: Unauthorized
+ */
+router.delete("/:id", protect, deleteProduct);
 
 export default router;
