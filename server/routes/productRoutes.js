@@ -8,7 +8,8 @@ import {
     deleteProduct
 } from "../controllers/productController.js";
 
-import protect from "../middleware/authMiddleware.js";
+import { protect } from "../middleware/authMiddleware.js";
+import adminOnly from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
 
@@ -43,13 +44,13 @@ const router = express.Router();
  *           example: Comfortable cotton t-shirt
  *         price:
  *           type: number
- *           example: 29.99
+ *           example: 1500
  *         image:
  *           type: string
  *           example: https://example.com/tshirt.jpg
  *         category:
  *           type: string
- *           example: Clothing
+ *           example: Jewellery
  */
 
 /**
@@ -69,6 +70,7 @@ const router = express.Router();
  *                 $ref: '#/components/schemas/Product'
  */
 router.get("/", getProducts);
+
 
 /**
  * @swagger
@@ -95,6 +97,7 @@ router.get("/", getProducts);
  */
 router.get("/:id", getProduct);
 
+
 /**
  * @swagger
  * /api/products:
@@ -116,8 +119,16 @@ router.get("/:id", getProduct);
  *         description: Invalid product data
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: Admin permissions required
  */
-router.post("/", protect, createProduct);
+router.post(
+    "/",
+    protect,
+    adminOnly,
+    createProduct
+);
+
 
 /**
  * @swagger
@@ -147,8 +158,16 @@ router.post("/", protect, createProduct);
  *         description: Product not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: Admin permissions required
  */
-router.put("/:id", protect, updateProduct);
+router.put(
+    "/:id",
+    protect,
+    adminOnly,
+    updateProduct
+);
+
 
 /**
  * @swagger
@@ -172,7 +191,14 @@ router.put("/:id", protect, updateProduct);
  *         description: Product not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: Admin permissions required
  */
-router.delete("/:id", protect, deleteProduct);
+router.delete(
+    "/:id",
+    protect,
+    adminOnly,
+    deleteProduct
+);
 
 export default router;

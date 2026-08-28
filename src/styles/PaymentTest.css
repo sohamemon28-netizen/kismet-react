@@ -1,0 +1,147 @@
+.payment-test-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #f7f5f0;
+}
+
+.payment-test-container {
+    width: 100%;
+    max-width: 620px;
+    text-align: center;
+}
+
+.payment-test-eyebrow {
+    margin: 0 0 12px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #777;
+}
+
+.payment-test-container h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 500;
+    color: #171717;
+}
+
+.payment-test-description {
+    margin: 16px auto 30px;
+    max-width: 500px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.payment-test-error {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 1px solid #d9a4a4;
+    background: #fff5f5;
+    color: #a33;
+    border-radius: 4px;
+}
+
+.payment-test-order {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #e3e0d9;
+}
+
+.payment-test-order span {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #888;
+}
+
+.payment-test-order strong {
+    font-size: 13px;
+    font-weight: 500;
+    word-break: break-all;
+    color: #333;
+}
+
+.payment-test-card {
+    padding: 42px 36px;
+    background: #fff;
+    border: 1px solid #e3e0d9;
+}
+
+.payment-test-icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #171717;
+    color: #fff;
+    font-size: 24px;
+}
+
+.payment-test-card h2 {
+    margin: 0 0 12px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.payment-test-card p {
+    margin: 0 auto 28px;
+    max-width: 440px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.payment-test-button {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    background: #171717;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.payment-test-button:hover:not(:disabled) {
+    opacity: 0.8;
+}
+
+.payment-test-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.payment-test-back {
+    margin-top: 16px;
+    border: none;
+    background: transparent;
+    color: #555;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.payment-test-back:hover:not(:disabled) {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .payment-test-page {
+        padding: 30px 16px;
+    }
+
+    .payment-test-container h1 {
+        font-size: 32px;
+    }
+
+    .payment-test-card {
+        padding: 30px 22px;
+    }
+}

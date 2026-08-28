@@ -77,9 +77,8 @@ The JWT is obtained through the login endpoint.
 
 ## Environment Variables
 
-Create a `.env` file:
 
-```env
+
 MONGO_URI=mongodb://127.0.0.1:27017/kismetDB
 PORT=5000
 JWT_SECRET=your_secret_key

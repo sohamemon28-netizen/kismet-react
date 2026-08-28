@@ -1,0 +1,442 @@
+/* =========================================================
+   ORDERS PAGE
+   ========================================================= */
+
+.orders-page {
+    min-height: calc(100vh - 80px);
+    background:
+        radial-gradient(
+            circle at 85% 5%,
+            rgba(184, 147, 95, 0.08),
+            transparent 28%
+        ),
+        #f7f6f3;
+
+    padding: 110px 32px 110px;
+    color: #171717;
+}
+
+.orders-container {
+    width: min(1080px, 100%);
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.orders-heading {
+    margin-bottom: 42px;
+}
+
+.orders-eyebrow {
+    margin: 0 0 14px;
+
+    color: #8c6b43;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+}
+
+.orders-heading h1 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(42px, 6vw, 64px);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+}
+
+.orders-heading > p:last-child {
+    max-width: 520px;
+    margin: 20px 0 0;
+
+    color: #77736d;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SUCCESS / ERROR
+   ========================================================= */
+
+.orders-success,
+.orders-error {
+    margin-bottom: 25px;
+    padding: 15px 18px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.orders-success {
+    border: 1px solid #d8c7ad;
+    background: #faf7f1;
+    color: #765b38;
+}
+
+.orders-error {
+    border: 1px solid #e7bdbd;
+    background: #fff5f5;
+    color: #9d3030;
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.orders-loading {
+    padding: 50px 0;
+
+    color: #817b74;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   EMPTY ORDERS
+   ========================================================= */
+
+.no-orders {
+    padding: 90px 35px;
+
+    border: 1px solid #e2ded8;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    text-align: center;
+
+    box-shadow:
+        0 18px 50px rgba(34, 29, 23, 0.05);
+}
+
+.no-orders h2 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 31px;
+    font-weight: 400;
+}
+
+.no-orders p {
+    margin: 12px 0 28px;
+
+    color: #817c75;
+    font-size: 14px;
+}
+
+.no-orders button {
+    padding: 13px 22px;
+
+    border: 1px solid #242321;
+    border-radius: 6px;
+
+    background: #242321;
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.no-orders button:hover {
+    background: #8d6d47;
+    border-color: #8d6d47;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(34, 29, 23, 0.12);
+}
+
+
+/* =========================================================
+   ORDERS LIST
+   ========================================================= */
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+
+/* =========================================================
+   ORDER CARD
+   ========================================================= */
+
+.order-card {
+    overflow: hidden;
+
+    border: 1px solid #e1ddd7;
+    border-radius: 15px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 12px 38px rgba(34, 29, 23, 0.045);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #d4cec5;
+
+    box-shadow:
+        0 22px 55px rgba(34, 29, 23, 0.08);
+}
+
+
+/* =========================================================
+   ORDER HEADER
+   ========================================================= */
+
+.order-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 25px 28px;
+
+    border-bottom: 1px solid #eeeae5;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff 0%,
+            #fbfaf8 100%
+        );
+}
+
+.order-header p {
+    margin: 0 0 7px;
+
+    color: #9a9289;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.order-header h2 {
+    margin: 0;
+
+    color: #242220;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.order-date {
+    color: #8a857e;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ORDER ITEMS
+   ========================================================= */
+
+.order-items {
+    padding: 8px 28px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding: 19px 0;
+
+    border-bottom: 1px solid #f0ede9;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item img {
+    width: 76px;
+    height: 92px;
+
+    flex-shrink: 0;
+
+    border-radius: 7px;
+
+    background: #f2f0ec;
+
+    object-fit: cover;
+}
+
+.order-item > div {
+    min-width: 0;
+    flex: 1;
+}
+
+.order-item h3 {
+    margin: 0 0 8px;
+
+    color: #242220;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    font-weight: 400;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.order-item p {
+    margin: 0;
+
+    color: #858079;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.order-item strong {
+    flex-shrink: 0;
+
+    color: #292724;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   ORDER TOTAL
+   ========================================================= */
+
+.order-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 23px 28px;
+
+    border-top: 1px solid #e9e5df;
+
+    background: #faf9f7;
+}
+
+.order-total span {
+    color: #8b857e;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.order-total strong {
+    color: #1e1d1b;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .orders-page {
+        padding: 95px 20px 80px;
+    }
+
+    .orders-heading {
+        margin-bottom: 32px;
+    }
+
+    .orders-heading h1 {
+        font-size: 44px;
+    }
+
+    .order-header {
+        padding: 21px;
+    }
+
+    .order-items {
+        padding: 5px 21px;
+    }
+
+    .order-total {
+        padding: 21px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .orders-page {
+        padding: 85px 15px 60px;
+    }
+
+    .orders-heading h1 {
+        font-size: 38px;
+    }
+
+    .order-header {
+        align-items: flex-start;
+        gap: 12px;
+        flex-direction: column;
+    }
+
+    .order-date {
+        font-size: 11px;
+    }
+
+    .order-item {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .order-item img {
+        width: 60px;
+        height: 74px;
+    }
+
+    .order-item h3 {
+        font-size: 16px;
+        white-space: normal;
+    }
+
+    .order-item strong {
+        font-size: 14px;
+    }
+
+    .order-total strong {
+        font-size: 21px;
+    }
+}

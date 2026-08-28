@@ -26,6 +26,11 @@ const productSchema = new mongoose.Schema(
         category: {
             type: String,
             default: "Jewellery"
+        },
+
+        featured: {
+            type: Boolean,
+            default: false
         }
     },
     {

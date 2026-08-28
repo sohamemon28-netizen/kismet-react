@@ -1,7 +1,8 @@
+
 import { useState } from "react";
+import { API_BASE } from "../config/api";
 
 function Contact() {
-
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -10,6 +11,8 @@ function Contact() {
     });
 
     const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setForm({
@@ -18,39 +21,94 @@ function Contact() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setSuccess("");
+        setError("");
+
         if (
-            !form.name ||
-            !form.email ||
-            !form.subject ||
-            !form.message
+            !form.name.trim() ||
+            !form.email.trim() ||
+            !form.subject.trim() ||
+            !form.message.trim()
         ) {
+            setError(
+                "Please complete all fields before submitting."
+            );
+
             return;
         }
 
-        setSuccess("Thank you for contacting us. We'll get back to you shortly.");
+        try {
+            setLoading(true);
 
-        setForm({
-            name: "",
-            email: "",
-            subject: "",
-            message: ""
-        });
+            const response = await fetch(
+                `${API_BASE}/api/contact`,
+                {
+                    method: "POST",
 
-        setTimeout(() => {
-            setSuccess("");
-        }, 4000);
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name: form.name,
+                        email: form.email,
+                        subject: form.subject,
+                        message: form.message
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                    "Failed to submit your message."
+                );
+            }
+
+            setSuccess(
+                "Thank you for contacting us. We'll get back to you shortly."
+            );
+
+            setForm({
+                name: "",
+                email: "",
+                subject: "",
+                message: ""
+            });
+
+            setTimeout(() => {
+                setSuccess("");
+            }, 4000);
+
+        } catch (error) {
+            console.error(
+                "CONTACT FORM ERROR:",
+                error
+            );
+
+            setError(
+                error.message ||
+                "Something went wrong. Please try again."
+            );
+
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-
         <section className="contact-page">
 
             <div className="contact-header">
 
-                <h1>Get In Touch</h1>
+                <h1>
+                    Get In Touch
+                </h1>
 
                 <p>
                     We'd love to hear from you. Whether you have questions
@@ -101,11 +159,22 @@ function Contact() {
                         value={form.message}
                         onChange={handleChange}
                         required
-                    ></textarea>
+                    />
 
-                    <button type="submit">
-                        Send Message
+                    <button
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Sending..."
+                            : "Send Message"}
                     </button>
+
+                    {error && (
+                        <p className="contact-error">
+                            {error}
+                        </p>
+                    )}
 
                     {success && (
                         <p className="contact-success">
@@ -117,11 +186,17 @@ function Contact() {
 
                 <div className="contact-info">
 
-                    <h3>Contact Information</h3>
+                    <h3>
+                        Contact Information
+                    </h3>
 
-                    <p>hello@kismetjewellery.com</p>
+                    <p>
+                        hello@kismetjewellery.com
+                    </p>
 
-                    <p>+44 1234 567890</p>
+                    <p>
+                        +44 1234 567890
+                    </p>
 
                     <p>
                         Monday – Friday
@@ -134,9 +209,7 @@ function Contact() {
             </div>
 
         </section>
-
     );
-
 }
 
 export default Contact;

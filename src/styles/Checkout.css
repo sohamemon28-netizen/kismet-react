@@ -1,0 +1,1019 @@
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+.checkout-page {
+    min-height: 100vh;
+    padding: 70px 6vw 100px;
+    background: var(--cream);
+    color: var(--black);
+}
+
+.checkout-container {
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.checkout-heading {
+    margin-bottom: 50px;
+}
+
+.checkout-eyebrow {
+    margin-bottom: 12px;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--taupe);
+}
+
+.checkout-heading h1 {
+    margin: 0 0 14px;
+    font-size: clamp(34px, 4vw, 52px);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -1.5px;
+}
+
+.checkout-heading > p:last-child {
+    max-width: 520px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--taupe);
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.checkout-error {
+    margin-bottom: 25px;
+    padding: 14px 18px;
+    border: 1px solid rgba(150, 70, 70, 0.25);
+    background: rgba(150, 70, 70, 0.05);
+    color: #8a4545;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   MAIN CHECKOUT LAYOUT
+===================================================== */
+
+/*
+    LEFT:
+    Customer details
+
+    RIGHT:
+    Order items
+    Order total
+*/
+
+.checkout-layout {
+    width: 100%;
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(360px, 0.85fr);
+
+    column-gap: 70px;
+
+    align-items: start;
+}
+
+
+/* =====================================================
+   LEFT SIDE — CUSTOMER DETAILS
+===================================================== */
+
+.customer-details {
+    min-width: 0;
+    grid-column: 1;
+}
+
+.customer-details .section-heading {
+    margin-bottom: 28px;
+}
+
+.customer-details .section-heading h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: -0.4px;
+}
+
+.customer-details .section-heading .checkout-eyebrow {
+    margin-bottom: 8px;
+}
+
+
+/* =====================================================
+   CUSTOMER FORM
+===================================================== */
+
+.checkout-form {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 24px 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+
+/* Address takes full width */
+
+.form-group:nth-child(4) {
+    grid-column: 1 / -1;
+}
+
+
+.form-group label {
+    margin-bottom: 9px;
+
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1.7px;
+
+    color: var(--taupe);
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 1px solid var(--line);
+    border-radius: 0;
+
+    padding: 14px 15px;
+
+    background: rgba(255, 255, 255, 0.45);
+
+    color: var(--black);
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.form-group input,
+.form-group select {
+    height: 48px;
+}
+
+
+.form-group textarea {
+    min-height: 105px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa29a;
+}
+
+
+/* =====================================================
+   INPUT FOCUS
+===================================================== */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--black);
+
+    background: #fff;
+
+    box-shadow:
+        0 5px 20px
+        rgba(23, 21, 19, 0.04);
+}
+
+
+/* =====================================================
+   CITY SELECT
+===================================================== */
+
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    cursor: pointer;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            var(--black) 50%
+        ),
+        linear-gradient(
+            135deg,
+            var(--black) 50%,
+            transparent 50%
+        );
+
+    background-position:
+        calc(100% - 17px) 20px,
+        calc(100% - 12px) 20px;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat: no-repeat;
+}
+
+
+/* =====================================================
+   RIGHT SIDE — ORDER COLUMN
+===================================================== */
+
+/*
+    IMPORTANT:
+
+    The "Complete your order" heading is currently
+    ABOVE .checkout-layout in your JSX.
+
+    Because of that, the right column would normally
+    start too low.
+
+    This pulls the order column upward so the
+    Order Items card sits beside the checkout heading.
+*/
+
+.checkout-order-column {
+    min-width: 0;
+
+    grid-column: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+
+    position: sticky;
+
+    top: 30px;
+
+    /*
+        Pull the right column upward.
+    */
+    margin-top: -145px;
+
+    align-self: start;
+}
+
+
+/* =====================================================
+   ORDER ITEMS CARD
+===================================================== */
+
+.checkout-items {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 30px;
+
+    background: #f8f6f2;
+
+    border: 1px solid var(--line);
+}
+
+
+/* ORDER HEADING */
+
+.checkout-items .section-heading {
+    padding-bottom: 22px;
+
+    margin-bottom: 0;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+.checkout-items .section-heading h2 {
+    font-size: 21px;
+}
+
+
+/* =====================================================
+   PRODUCT ITEMS
+===================================================== */
+
+.checkout-items-list {
+    width: 100%;
+}
+
+
+.checkout-item {
+    display: grid;
+
+    grid-template-columns:
+        78px
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px 0;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+
+.checkout-item:last-child {
+    border-bottom: none;
+}
+
+
+/* PRODUCT IMAGE */
+
+.checkout-item img {
+    width: 78px;
+    height: 96px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* PRODUCT CATEGORY */
+
+.checkout-category {
+    margin: 0 0 6px;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    color: var(--taupe);
+}
+
+
+/* PRODUCT INFO */
+
+.checkout-item-info {
+    min-width: 0;
+}
+
+
+.checkout-item h3 {
+    margin: 0 0 7px;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    line-height: 1.25;
+}
+
+
+/* QUANTITY */
+
+.checkout-item div > p:last-child {
+    margin: 0;
+
+    font-size: 10px;
+
+    color: var(--taupe);
+}
+
+
+/* PRICE */
+
+.checkout-item strong {
+    align-self: center;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   TOTAL / SUMMARY
+===================================================== */
+
+.checkout-summary {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding:
+        25px
+        30px
+        30px;
+
+    background: #f8f6f2;
+
+    border: 1px solid var(--line);
+}
+
+
+/* TOTAL ROW */
+
+.checkout-total {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 22px;
+
+    margin-bottom: 20px;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+
+.checkout-summary span {
+    font-size: 12px;
+
+    color: var(--taupe);
+}
+
+
+.checkout-summary strong {
+    font-size: 17px;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+.checkout-summary > button:first-of-type {
+    width: 100%;
+
+    min-height: 48px;
+
+    border:
+        1px solid
+        var(--black);
+
+    background:
+        var(--black);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.8px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.checkout-summary > button:first-of-type:hover {
+    background: transparent;
+
+    color: var(--black);
+}
+
+
+.checkout-summary > button:first-of-type:active {
+    transform: scale(0.99);
+}
+
+
+.checkout-summary > button:first-of-type:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   BACK TO CART
+===================================================== */
+
+.checkout-back-button {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--taupe);
+
+    font-family: inherit;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.checkout-back-button:hover {
+    color: var(--black);
+}
+
+
+/* =====================================================
+   EMPTY CART
+===================================================== */
+
+.checkout-container > button {
+    margin-top: 20px;
+
+    padding: 13px 24px;
+
+    border:
+        1px solid
+        var(--black);
+
+    background:
+        var(--black);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .checkout-page {
+        padding:
+            55px
+            5vw
+            80px;
+    }
+
+
+    .checkout-layout {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(300px, 0.8fr);
+
+        column-gap: 35px;
+    }
+
+
+    /*
+        Smaller pull-up on tablet.
+    */
+
+    .checkout-order-column {
+        top: 25px;
+
+        margin-top: -125px;
+    }
+
+
+    .checkout-items {
+        padding: 25px;
+    }
+
+
+    .checkout-summary {
+        padding:
+            22px
+            25px
+            27px;
+    }
+
+
+    .checkout-item {
+        grid-template-columns:
+            65px
+            minmax(0, 1fr)
+            auto;
+
+        gap: 12px;
+    }
+
+
+    .checkout-item img {
+        width: 65px;
+
+        height: 82px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .checkout-page {
+        padding:
+            45px
+            20px
+            70px;
+    }
+
+
+    .checkout-heading {
+        margin-bottom: 38px;
+    }
+
+
+    .checkout-heading h1 {
+        font-size: 34px;
+    }
+
+
+    /*
+        On mobile everything becomes one column.
+        Remove the desktop pull-up.
+    */
+
+    .checkout-layout {
+        grid-template-columns: 1fr;
+
+        column-gap: 0;
+
+        row-gap: 45px;
+    }
+
+
+    .customer-details {
+        grid-column: 1;
+    }
+
+
+    .checkout-order-column {
+        grid-column: 1;
+
+        position: static;
+
+        margin-top: 0;
+
+        gap: 15px;
+    }
+
+
+    /* FORM */
+
+    .checkout-form {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+
+    .form-group:nth-child(4) {
+        grid-column: auto;
+    }
+
+
+    /* ORDER */
+
+    .checkout-items {
+        padding:
+            22px
+            18px;
+    }
+
+
+    .checkout-summary {
+        padding:
+            22px
+            18px
+            25px;
+    }
+
+
+    .checkout-item {
+        grid-template-columns:
+            65px
+            minmax(0, 1fr)
+            auto;
+
+        gap: 12px;
+    }
+
+
+    .checkout-item img {
+        width: 65px;
+
+        height: 82px;
+    }
+
+
+    .checkout-item h3 {
+        font-size: 13px;
+    }
+
+
+    .checkout-item strong {
+        font-size: 11px;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 450px) {
+
+    .checkout-heading h1 {
+        font-size: 32px;
+    }
+
+
+    .checkout-items {
+        padding:
+            20px
+            15px;
+    }
+
+
+    .checkout-summary {
+        padding:
+            20px
+            15px
+            23px;
+    }
+
+
+    .checkout-item {
+        grid-template-columns:
+            55px
+            minmax(0, 1fr);
+
+        gap: 10px;
+    }
+
+
+    .checkout-item img {
+        width: 55px;
+
+        height: 72px;
+    }
+
+
+    .checkout-item strong {
+        grid-column: 2;
+
+        justify-self: start;
+
+        margin-top: -4px;
+    }
+}
+/* =====================================================
+   PAYMENT METHODS
+===================================================== */
+
+.payment-methods {
+    margin-bottom: 22px;
+}
+
+.payment-method-label {
+    margin: 0 0 12px;
+
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+
+    color: var(--taupe);
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 15px 16px;
+    margin-bottom: 10px;
+
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.35);
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.payment-option:last-child {
+    margin-bottom: 0;
+}
+
+.payment-option:hover {
+    border-color: var(--black);
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.payment-option.selected {
+    border-color: var(--black);
+    background: #fff;
+
+    box-shadow:
+        0 4px 15px rgba(23, 21, 19, 0.04);
+}
+
+.payment-option input {
+    width: 15px;
+    height: 15px;
+
+    margin: 0 13px 0 0;
+
+    accent-color: var(--black);
+
+    cursor: pointer;
+}
+
+.payment-option-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.payment-option-content strong {
+    margin: 0;
+
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.payment-option-content small {
+    margin: 0;
+
+    font-size: 10px;
+    line-height: 1.4;
+
+    color: var(--taupe);
+}
+/* =====================================================
+   PAYMENT METHODS
+===================================================== */
+
+.checkout-payment {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 25px 30px 30px;
+    background: #f8f6f2;
+    border: 1px solid var(--line);
+}
+
+.checkout-payment .section-heading {
+    padding-bottom: 20px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+}
+
+.checkout-payment .section-heading h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.payment-option:hover {
+    border-color: var(--black);
+}
+
+.payment-option.selected {
+    border-color: var(--black);
+    background: #fff;
+}
+
+.payment-option input {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    accent-color: var(--black);
+    cursor: pointer;
+}
+
+.payment-option div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.payment-option strong {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.payment-option span {
+    font-size: 10px;
+    color: var(--taupe);
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   PAYMENT — MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .checkout-payment {
+        padding: 22px 18px 25px;
+    }
+
+}

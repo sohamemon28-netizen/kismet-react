@@ -1,72 +1,91 @@
-import { useState } from "react";
-import ProductModal from "./ProductModal";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import "./ProductCard.css";
 
 function ProductCard({ product }) {
 
-    const [open, setOpen] = useState(false);
+    const { addToCart } = useContext(CartContext);
+
+    const productId = product._id || product.id;
+
+    const cartProduct = {
+        ...product,
+        id: productId
+    };
 
     return (
 
-        <>
+        <article className="product-card">
 
-            <article
-
-                className="card"
-
-                onClick={() => setOpen(true)}
-
+            <Link
+                to={`/product/${productId}`}
+                className="product-image-link"
             >
-             <p className="rating">
 
-    ⭐ {product.rating.rate} ({product.rating.count} reviews)
+                <div className="product-image-wrapper">
 
-            </p>
-                <img
+                    <img
+                        src={product.image}
+                        alt={product.title}
+                        className="product-image"
+                    />
 
-                    src={product.image}
+                    <span className="product-badge">
+                        NEW
+                    </span>
 
-                    alt={product.title}
+                </div>
 
-                />
+            </Link>
 
-                <h3>
+            <div className="product-card-info">
 
-                    {product.title}
+                <div className="product-details">
 
-                </h3>
+                    <Link
+                        to={`/product/${productId}`}
+                        className="product-title"
+                    >
 
-                <p>
+                        {product.title}
 
-                    {product.description.substring(0,80)}...
+                    </Link>
 
-                </p>
+                    <p className="product-description">
 
-                <h4>
+                        {product.description}
 
-                    £{product.price}
+                    </p>
 
-                </h4>
+                </div>
 
-            </article>
+                <div className="product-bottom">
 
-            {
+                    <span className="product-price">
 
-                open &&
+                        £{Number(product.price).toFixed(2)}
 
-                <ProductModal
+                    </span>
 
-                    product={product}
+                    <button
+                        className="quick-add-button"
+                        onClick={() =>
+                            addToCart(cartProduct)
+                        }
+                    >
 
-                    close={() => setOpen(false)}
+                        ADD +
 
-                />
+                    </button>
 
-            }
+                </div>
 
-        </>
+            </div>
+
+        </article>
 
     );
-
 }
 
 export default ProductCard;

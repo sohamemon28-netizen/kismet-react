@@ -1,39 +1,44 @@
-import { createContext, useState, useEffect } from "react";
+import {
+    createContext,
+    useEffect,
+    useState
+} from "react";
 
 export const CartContext = createContext();
 
 function CartProvider({ children }) {
-
     const [cart, setCart] = useState(() => {
-
         const saved = localStorage.getItem("cart");
 
         return saved ? JSON.parse(saved) : [];
-
     });
 
     useEffect(() => {
-
-        localStorage.setItem("cart", JSON.stringify(cart));
-
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
     }, [cart]);
 
     function addToCart(product) {
-
-        const exists = cart.find(item => item._id === product._id);
+        const exists = cart.find(
+            (item) => item._id === product._id
+        );
 
         if (exists) {
-
             setCart(
-                cart.map(item =>
+                cart.map((item) =>
                     item._id === product._id
-                        ? { ...item, quantity: item.quantity + 1 }
+                        ? {
+                            ...item,
+                            price: product.price,
+                            quantity:
+                                item.quantity + 1
+                        }
                         : item
                 )
             );
-
         } else {
-
             setCart([
                 ...cart,
                 {
@@ -41,50 +46,40 @@ function CartProvider({ children }) {
                     quantity: 1
                 }
             ]);
-
         }
-
     }
 
     function removeFromCart(id) {
-
         setCart(
-            cart.flatMap(item => {
-
-                if (item._id !== id) return item;
+            cart.flatMap((item) => {
+                if (item._id !== id) {
+                    return item;
+                }
 
                 if (item.quantity > 1) {
-
                     return {
                         ...item,
                         quantity: item.quantity - 1
                     };
-
                 }
 
                 return [];
-
             })
         );
-
     }
 
     return (
-
         <CartContext.Provider
             value={{
                 cart,
+                setCart,
                 addToCart,
                 removeFromCart
             }}
         >
-
             {children}
-
         </CartContext.Provider>
-
     );
-
 }
 
 export default CartProvider;

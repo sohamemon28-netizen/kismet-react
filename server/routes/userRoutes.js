@@ -1,9 +1,42 @@
 import express from "express";
 import User from "../models/User.js";
 
+import {
+    getProfile,
+    updateProfile
+} from "../controllers/userController.js";
+
+import protect from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-// GET all users
+
+/* =========================================
+   GET CURRENT LOGGED-IN USER PROFILE
+========================================= */
+
+router.get(
+    "/profile",
+    protect,
+    getProfile
+);
+
+
+/* =========================================
+   UPDATE CURRENT LOGGED-IN USER PROFILE
+========================================= */
+
+router.put(
+    "/profile",
+    protect,
+    updateProfile
+);
+
+
+/* =========================================
+   GET ALL USERS
+========================================= */
+
 router.get("/", async (req, res) => {
 
     try {
@@ -14,85 +47,131 @@ router.get("/", async (req, res) => {
 
     } catch (err) {
 
-        res.status(500).json({ message: err.message });
-
+        res.status(500).json({
+            message: err.message
+        });
     }
-
 });
 
-// GET one user
+
+/* =========================================
+   GET ONE USER
+========================================= */
+
 router.get("/:id", async (req, res) => {
 
     try {
 
-        const user = await User.findById(req.params.id);
+        const user =
+            await User.findById(req.params.id);
 
-        if (!user)
-            return res.status(404).json({ message: "User not found" });
+        if (!user) {
+
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
 
         res.json(user);
 
     } catch (err) {
 
-        res.status(500).json({ message: err.message });
-
+        res.status(500).json({
+            message: err.message
+        });
     }
-
 });
 
-// CREATE user
+
+/* =========================================
+   CREATE USER
+========================================= */
+
 router.post("/", async (req, res) => {
 
     try {
 
-        const user = await User.create(req.body);
+        const user =
+            await User.create(req.body);
 
         res.status(201).json(user);
 
     } catch (err) {
 
-        res.status(400).json({ message: err.message });
-
+        res.status(400).json({
+            message: err.message
+        });
     }
-
 });
 
-// UPDATE user
+
+/* =========================================
+   UPDATE USER BY ID
+========================================= */
+
 router.put("/:id", async (req, res) => {
 
     try {
 
-        const user = await User.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
+        const user =
+            await User.findByIdAndUpdate(
+                req.params.id,
+                req.body,
+                {
+                    new: true,
+                    runValidators: true
+                }
+            );
+
+        if (!user) {
+
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
 
         res.json(user);
 
     } catch (err) {
 
-        res.status(400).json({ message: err.message });
-
+        res.status(400).json({
+            message: err.message
+        });
     }
-
 });
 
-// DELETE user
+
+/* =========================================
+   DELETE USER
+========================================= */
+
 router.delete("/:id", async (req, res) => {
 
     try {
 
-        await User.findByIdAndDelete(req.params.id);
+        const user =
+            await User.findByIdAndDelete(
+                req.params.id
+            );
 
-        res.json({ message: "User deleted" });
+        if (!user) {
+
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        res.json({
+            message: "User deleted"
+        });
 
     } catch (err) {
 
-        res.status(500).json({ message: err.message });
-
+        res.status(500).json({
+            message: err.message
+        });
     }
-
 });
+
 
 export default router;

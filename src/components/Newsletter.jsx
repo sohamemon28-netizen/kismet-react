@@ -1,69 +1,75 @@
 import { useState } from "react";
 
 function Newsletter() {
-
     const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
+    const [submitted, setSubmitted] = useState(false);
 
-    function handleSubmit(e) {
+    function handleSubmit(event) {
+        event.preventDefault();
 
-        e.preventDefault();
-
-        if (email.trim() === "") {
-
-            setMessage("Please enter your email.");
+        if (!email.trim()) {
             return;
-
         }
 
-        setMessage(" Thank you for subscribing to Kismet!");
-
+        setSubmitted(true);
         setEmail("");
-
     }
 
     return (
-
         <section className="newsletter">
 
-            <h2>Join The Kismet Family</h2>
+            <div className="newsletter-inner">
 
-            <p>
-                Be the first to know about new collections,
-                exclusive launches, and special offers.
-            </p>
-
-            <form onSubmit={handleSubmit}>
-
-                <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <button type="submit">
-
-                    Subscribe
-
-                </button>
-
-            </form>
-
-            {message && (
-
-                <p className="newsletter-message">
-
-                    {message}
-
+                <p className="newsletter-eyebrow">
+                    KISMET JOURNAL
                 </p>
 
-            )}
+                <h2>
+                    A little something
+                    <br />
+                    worth knowing.
+                </h2>
+
+                <p className="newsletter-description">
+                    Join our world of jewellery, stories and thoughtful
+                    pieces made to become part of yours.
+                </p>
+
+                {!submitted ? (
+                    <form
+                        className="newsletter-form"
+                        onSubmit={handleSubmit}
+                    >
+
+                        <input
+                            type="email"
+                            placeholder="YOUR EMAIL ADDRESS"
+                            value={email}
+                            onChange={(event) =>
+                                setEmail(event.target.value)
+                            }
+                            required
+                        />
+
+                        <button type="submit">
+                            JOIN
+                            <span>→</span>
+                        </button>
+
+                    </form>
+                ) : (
+                    <div className="newsletter-success">
+                        <span>THANK YOU</span>
+                        <p>
+                            You're now part of the Kismet journal.
+                        </p>
+                    </div>
+                )}
+
+            </div>
 
         </section>
-
     );
-
 }
 
 export default Newsletter;
