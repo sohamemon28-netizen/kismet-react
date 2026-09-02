@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "../App.css";
 
-const API_URL = "http://localhost:5000/api/products";
+ const API_URL = "https://kismet-api-xetw.onrender.com/api/products";
 
 function Shop() {
     const [products, setProducts] = useState([]);
